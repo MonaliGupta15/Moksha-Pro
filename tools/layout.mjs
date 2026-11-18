@@ -391,6 +391,13 @@ export function ctaBand({ image, title, text, primary = ["Reserve a suite", "#",
 </section>`;
 }
 
+export function backToTop() {
+  return `<button class="back-to-top" type="button" data-back-to-top aria-label="Back to top">
+  <span class="back-to-top__icon" aria-hidden="true">${icons.up}</span>
+  <span class="back-to-top__text">Top</span>
+</button>`;
+}
+
 export function scripts() {
   return `<script src="assets/vendor/gsap.min.js" defer></script>
 <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
@@ -412,6 +419,7 @@ ${menu(page)}
 ${main}
 </main>
 ${footer()}
+${backToTop()}
 ${bookingModal()}
 ${withLightbox ? lightbox() : ""}
 ${scripts()}

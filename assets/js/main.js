@@ -105,6 +105,10 @@
       if (y > 480 && y > (onScroll.last || 0) + 4) header.classList.add("is-hidden");
       else if (y < (onScroll.last || 0) - 4 || y < 120) header.classList.remove("is-hidden");
     }
+    const backToTop = $("[data-back-to-top]");
+    if (backToTop) {
+      backToTop.classList.toggle("is-visible", y > 400);
+    }
     onScroll.last = y;
   }
 
@@ -1005,6 +1009,21 @@
     if (hasST) ScrollTrigger.refresh();
   }
 
+  /* ---------------- Back to Top ---------------- */
+  function initBackToTop() {
+    const targets = $$("[data-back-to-top], .footer__back");
+    targets.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (lenis) {
+          lenis.scrollTo(0, { duration: 1.2 });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    });
+  }
+
   /* ---------------- Boot ---------------- */
   doc.addEventListener("DOMContentLoaded", async () => {
     if (hasGSAP && hasST) {
@@ -1034,6 +1053,7 @@
     initForms();
     initPageTransition();
     initSideIndex();
+    initBackToTop();
 
     if (lenis) lenis.stop();
     prepareHero();
