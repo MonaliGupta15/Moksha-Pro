@@ -2184,6 +2184,11 @@ img[data-parallax] { will-change: transform; }
   .booking-bar__field:nth-child(2) { border-right: 0; }
   .booking-bar__field:nth-child(1),
   .booking-bar__field:nth-child(2) { border-bottom: 1px solid var(--line); }
+  .booking-bar__field:nth-child(3) {
+    grid-column: span 2;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
   .booking-bar__submit { grid-column: span 2; padding: 18px; justify-content: center; }
   .stats { grid-template-columns: 1fr 1fr; }
   .stat:nth-child(2) { border-right: 0; }
@@ -2504,9 +2509,60 @@ img[data-parallax] { will-change: transform; }
 .resort-switch__bottom a svg { width: 10px; height: 10px; }
 .resort-switch__bottom a:hover { opacity: 0.8; }
 
+.resort-switch__short { display: none; }
+.resort-switch__close { display: none; }
+
 @media (max-width: 768px) {
-  .resort-switch__current { display: none; }
-  .resort-switch__toggle { padding: 8px 10px; }
+  .resort-switch__long { display: none; }
+  .resort-switch__short { display: inline; }
+  .resort-switch__caption { display: none !important; }
+  .resort-switch__toggle {
+    padding: 7px 12px;
+    gap: 7px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .resort-switch__dropdown {
+    position: fixed;
+    top: calc(var(--header-h) + 8px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: 440px;
+    margin-inline: auto;
+    border-radius: 8px;
+    padding: 14px;
+    background: #141c17;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 0 100vmax rgba(0, 0, 0, 0.55);
+    z-index: 250;
+    max-height: calc(100svh - var(--header-h) - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .resort-switch__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    color: var(--ivory);
+    cursor: pointer;
+    flex: none;
+    margin-left: auto;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .resort-switch__close:hover,
+  .resort-switch__close:active {
+    background: rgba(200, 165, 101, 0.2);
+    border-color: var(--gold);
+  }
+  .resort-switch__close svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* ---------- Resorts Showcase (Interactive Tabbed Section) ---------- */

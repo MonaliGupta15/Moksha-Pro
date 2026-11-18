@@ -84,13 +84,21 @@ export function resortSwitcher() {
   <button class="resort-switch__toggle" type="button" data-resort-toggle aria-expanded="false" aria-haspopup="true" aria-label="Switch resort">
     <span class="resort-switch__dot" aria-hidden="true"></span>
     <span class="resort-switch__caption">Our Resorts</span>
-    <span class="resort-switch__current">Moksha Himalaya</span>
+    <span class="resort-switch__current">
+      <span class="resort-switch__long">Moksha Himalaya</span>
+      <span class="resort-switch__short">Resorts</span>
+    </span>
     <svg class="resort-switch__arrow" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
   </button>
   <div class="resort-switch__dropdown" data-resort-menu aria-hidden="true">
     <div class="resort-switch__top">
-      <span class="eyebrow">Timber Trail Resorts</span>
-      <small>3 Sanctuaries · Parwanoo</small>
+      <div class="resort-switch__title-wrap">
+        <span class="eyebrow">Timber Trail Resorts</span>
+        <small>3 Sanctuaries · Parwanoo</small>
+      </div>
+      <button class="resort-switch__close" type="button" data-resort-close aria-label="Close resort selector">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13"/></svg>
+      </button>
     </div>
     <div class="resort-switch__list">
       <a href="index.html" class="resort-switch__card is-active">

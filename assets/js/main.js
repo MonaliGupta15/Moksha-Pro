@@ -776,6 +776,7 @@
     if (!wrap) return;
     const btn = $("[data-resort-toggle]", wrap);
     const menu = $("[data-resort-menu]", wrap);
+    const closeBtn = $("[data-resort-close]", menu);
     if (!btn || !menu) return;
 
     function open() {
@@ -797,6 +798,13 @@
       e.stopPropagation();
       toggle();
     });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        close();
+      });
+    }
 
     doc.addEventListener("click", (e) => {
       if (!wrap.contains(e.target)) close();
