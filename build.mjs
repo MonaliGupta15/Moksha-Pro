@@ -7,7 +7,8 @@ import { home } from "./tools/home.mjs";
 import { suites, dining } from "./tools/pages-a.mjs";
 import { wellness, experiences } from "./tools/pages-b.mjs";
 import { weddings, gallery, contact, packagesPage } from "./tools/pages-c.mjs";
-import { careersPage, privacyPage, termsPage, blogPage } from "./tools/pages-d.mjs";
+import { careersPage, privacyPage, termsPage } from "./tools/pages-d.mjs";
+import { buildAllBlogs } from "./tools/blogs-engine.mjs";
 
 const pages = [
   {
@@ -125,19 +126,15 @@ const pages = [
     image: "assets/img/main-banner.jpg",
     main: termsPage,
   },
-  {
-    file: "blog.html",
-    page: "blog",
-    title: "The Journal — Mountain Stories, Wellness & Guides | Moksha Himalaya",
-    desc: "Curated stories, seasonal mountain guides, Ayurvedic wellness rituals, and travel itineraries from 5,000 ft above the Shivaliks.",
-    image: "assets/img/gallery/All-gal3.jpg",
-    main: blogPage,
-  },
 ];
 
-console.log("Building Moksha Himalaya:");
+console.log("Building Moksha Himalaya Core Pages:");
 for (const p of pages) {
   const html = layout(p);
   writePage(p.file, html);
 }
+
+// Build The Journal Hub (blog.html) and all individual article pages (blog/*.html)
+buildAllBlogs();
+
 console.log("Done.");

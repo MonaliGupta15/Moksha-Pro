@@ -26,6 +26,7 @@ const navLinks = [
   { page: "wellness", href: "wellness.html", label: "Wellness" },
   { page: "experiences", href: "experiences.html", label: "Experiences" },
   { page: "weddings", href: "weddings.html", label: "Weddings" },
+  { page: "blog", href: "blog.html", label: "Journal" },
 ];
 
 const menuLinks = [
@@ -44,7 +45,8 @@ const menuLinks = [
 
 const active = (page, target) => (page === target ? " is-active" : "");
 
-export function head({ title, desc, image = "assets/img/main-banner.jpg", preload = "", extra = "" }) {
+export function head({ title, desc, image = "assets/img/main-banner.jpg", preload = "", extra = "", root = "" }) {
+  const ogImg = image.startsWith("http") ? image : `${root}${image}`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,22 +57,22 @@ export function head({ title, desc, image = "assets/img/main-banner.jpg", preloa
 <meta name="theme-color" content="#101713">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
-<meta property="og:image" content="${image}">
+<meta property="og:image" content="${ogImg}">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="assets/img/favicon.png">
-<link rel="preload" href="assets/fonts/cormorant-garamond-300-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/jost-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="${root}assets/img/favicon.png">
+<link rel="preload" href="${root}assets/fonts/cormorant-garamond-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${root}assets/fonts/jost-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 ${preload}
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="${root}assets/css/style.css">
 <script>document.documentElement.classList.add('js');</script>
 ${extra}
 </head>`;
 }
 
-export function preloader() {
+export function preloader(root = "") {
   return `<div class="preloader" data-preloader aria-hidden="true">
   <div class="preloader__inner">
-    <div class="preloader__logo"><img src="assets/img/moksha-logo.png" alt="Moksha Himalaya"></div>
+    <div class="preloader__logo"><img src="${root}assets/img/moksha-logo.png" alt="Moksha Himalaya"></div>
     <div class="preloader__word">Moksha</div>
     <div class="preloader__bar"><i></i></div>
   </div>
@@ -79,7 +81,7 @@ export function preloader() {
 </div>`;
 }
 
-export function resortSwitcher() {
+export function resortSwitcher(root = "") {
   return `<div class="resort-switch" data-resort-dropdown>
   <button class="resort-switch__toggle" type="button" data-resort-toggle aria-expanded="false" aria-haspopup="true" aria-label="Switch resort">
     <span class="resort-switch__dot" aria-hidden="true"></span>
@@ -101,22 +103,22 @@ export function resortSwitcher() {
       </button>
     </div>
     <div class="resort-switch__list">
-      <a href="index.html" class="resort-switch__card is-active">
-        <div class="resort-switch__thumb"><img src="assets/img/main-banner.jpg" alt="Moksha Himalaya Spa Resort"></div>
+      <a href="${root}index.html" class="resort-switch__card is-active">
+        <div class="resort-switch__thumb"><img src="${root}assets/img/main-banner.jpg" alt="Moksha Himalaya Spa Resort"></div>
         <div class="resort-switch__meta">
           <div class="resort-switch__title"><strong>Moksha Himalaya Spa Resort</strong><span class="resort-switch__badge">Current</span></div>
           <p>5,000 ft · All-Suite Ayurvedic Spa Sanctuary</p>
         </div>
       </a>
       <a href="https://www.timbertrail.in/heights-terraces-parwanoo" target="_blank" rel="noopener" class="resort-switch__card">
-        <div class="resort-switch__thumb"><img src="assets/img/resorts/cable.jpg" alt="Timber Trail Heights & Terraces"></div>
+        <div class="resort-switch__thumb"><img src="${root}assets/img/resorts/cable.jpg" alt="Timber Trail Heights & Terraces"></div>
         <div class="resort-switch__meta">
           <div class="resort-switch__title"><strong>Timber Trail Heights &amp; Terraces</strong><span class="resort-switch__icon">${icons.arrow}</span></div>
           <p>5,000 ft · Mountain Crest, Events &amp; Banquets</p>
         </div>
       </a>
       <a href="https://www.timbertrail.in/resort-parwanoo" target="_blank" rel="noopener" class="resort-switch__card">
-        <div class="resort-switch__thumb"><img src="assets/img/resorts/himalayas.jpg" alt="Timber Trail Resort"></div>
+        <div class="resort-switch__thumb"><img src="${root}assets/img/resorts/himalayas.jpg" alt="Timber Trail Resort"></div>
         <div class="resort-switch__meta">
           <div class="resort-switch__title"><strong>Timber Trail Resort</strong><span class="resort-switch__icon">${icons.arrow}</span></div>
           <p>Foothills · Riverside Pine Lawns &amp; Cable Car Base</p>
@@ -130,18 +132,18 @@ export function resortSwitcher() {
 </div>`;
 }
 
-export function header(page) {
+export function header(page, root = "") {
   return `<header class="site-header" data-header>
-  <a class="brand" href="index.html" aria-label="Moksha Himalaya Spa Resort — home">
-    <span class="brand__mark"><img src="assets/img/moksha-logo.png" alt="Moksha Himalaya Spa Resort"></span>
+  <a class="brand" href="${root}index.html" aria-label="Moksha Himalaya Spa Resort — home">
+    <span class="brand__mark"><img src="${root}assets/img/moksha-logo.png" alt="Moksha Himalaya Spa Resort"></span>
     <span class="brand__text"><b>MOKSHA</b><span>Himalaya Spa Resort</span></span>
-    <img class="brand__wide" src="assets/img/fixed-header-logo.png" alt="">
+    <img class="brand__wide" src="${root}assets/img/fixed-header-logo.png" alt="">
   </a>
   <nav class="nav" aria-label="Primary">
-    ${navLinks.map((l) => `<a href="${l.href}" class="${active(page, l.page).trim()}">${l.label}</a>`).join("\n    ")}
+    ${navLinks.map((l) => `<a href="${root}${l.href}" class="${active(page, l.page).trim()}">${l.label}</a>`).join("\n    ")}
   </nav>
   <div class="header-actions">
-    ${resortSwitcher()}
+    ${resortSwitcher(root)}
     <a class="btn btn--dark" href="#" data-booking-open><span>Reserve</span></a>
     <button class="menu-btn" type="button" data-menu-open aria-expanded="false" aria-controls="site-menu">
       <span>Menu</span>
@@ -152,11 +154,11 @@ export function header(page) {
 <div class="scroll-progress" aria-hidden="true"></div>`;
 }
 
-export function menu(page) {
+export function menu(page, root = "") {
   return `<div class="menu-overlay" id="site-menu" data-menu-overlay aria-hidden="true">
   <div class="menu-overlay__top">
-    <a class="brand" href="index.html" aria-label="Moksha Himalaya Spa Resort — home">
-      <span class="brand__mark"><img src="assets/img/moksha-logo.png" alt="Moksha Himalaya Spa Resort"></span>
+    <a class="brand" href="${root}index.html" aria-label="Moksha Himalaya Spa Resort — home">
+      <span class="brand__mark"><img src="${root}assets/img/moksha-logo.png" alt="Moksha Himalaya Spa Resort"></span>
       <span class="brand__text"><b>MOKSHA</b><span>Himalaya Spa Resort</span></span>
     </a>
     <button class="menu-overlay__close" type="button" data-menu-close>
@@ -166,10 +168,10 @@ export function menu(page) {
   </div>
   <div class="menu-overlay__body">
     <nav class="menu-links" aria-label="Full site">
-      ${menuLinks.map((l, i) => `<a href="${l.href}" class="${active(page, l.page).trim()}" data-index="${i}" data-caption="${l.caption}"><span class="idx">${String(i + 1).padStart(2, "0")}</span><span class="word">${l.label}</span></a>`).join("\n      ")}
+      ${menuLinks.map((l, i) => `<a href="${root}${l.href}" class="${active(page, l.page).trim()}" data-index="${i}" data-caption="${l.caption}"><span class="idx">${String(i + 1).padStart(2, "0")}</span><span class="word">${l.label}</span></a>`).join("\n      ")}
     </nav>
     <div class="menu-visual" aria-hidden="true">
-      ${menuLinks.map((l) => `<img src="assets/img/${l.img}" alt="">`).join("\n      ")}
+      ${menuLinks.map((l) => `<img src="${root}assets/img/${l.img}" alt="">`).join("\n      ")}
       <span class="menu-visual__cap"></span>
     </div>
   </div>
@@ -177,7 +179,7 @@ export function menu(page) {
     <div class="menu-resorts">
       <span class="eyebrow">The Timber Trail Collection</span>
       <div class="menu-resorts__list">
-        <a href="index.html" class="is-active"><span>Moksha Himalaya Spa Resort</span><small>5,000 ft · Current sanctuary</small></a>
+        <a href="${root}index.html" class="is-active"><span>Moksha Himalaya Spa Resort</span><small>5,000 ft · Current sanctuary</small></a>
         <a href="https://www.timbertrail.in/heights-terraces-parwanoo" target="_blank" rel="noopener"><span>Timber Trail Heights &amp; Terraces</span><small>5,000 ft · Crest &amp; Events ↗</small></a>
         <a href="https://www.timbertrail.in/resort-parwanoo" target="_blank" rel="noopener"><span>Timber Trail Resort</span><small>Foothills · Valley Base ↗</small></a>
       </div>
@@ -299,13 +301,13 @@ export function lightbox() {
 </div>`;
 }
 
-export function footer() {
+export function footer(root = "") {
   return `<footer class="site-footer">
   <a class="footer__back" href="#top" aria-label="Back to top">${icons.up}</a>
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <img src="assets/img/footer-logo.png" alt="Moksha Himalaya Spa Resort">
+        <img src="${root}assets/img/footer-logo.png" alt="Moksha Himalaya Spa Resort">
         <p>Asia Resorts Limited<br>Moksha Himalaya Spa Resort<br>Parwanoo 173220, Himachal Pradesh, India</p>
         <div class="footer__socials">
           <a href="https://www.instagram.com/moksha_himalaya_spa_resort/" target="_blank" rel="noopener" aria-label="Instagram">${icons.instagram}</a>
@@ -316,32 +318,32 @@ export function footer() {
       <div class="footer__col">
         <h4>The Resort</h4>
         <ul>
-          <li><a href="suites.html">Accommodation</a></li>
-          <li><a href="dining.html">Dining</a></li>
-          <li><a href="wellness.html">Spa &amp; Wellness</a></li>
-          <li><a href="weddings.html">Celebrations</a></li>
-          <li><a href="packages.html">Packages</a></li>
+          <li><a href="${root}suites.html">Accommodation</a></li>
+          <li><a href="${root}dining.html">Dining</a></li>
+          <li><a href="${root}wellness.html">Spa &amp; Wellness</a></li>
+          <li><a href="${root}weddings.html">Celebrations</a></li>
+          <li><a href="${root}packages.html">Packages</a></li>
         </ul>
       </div>
       <div class="footer__col">
         <h4>Discover</h4>
         <ul>
-          <li><a href="experiences.html">Experiences</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="blog.html">The Journal</a></li>
-          <li><a href="contact.html">Getting here</a></li>
-          <li><a href="careers.html">Careers</a></li>
+          <li><a href="${root}experiences.html">Experiences</a></li>
+          <li><a href="${root}gallery.html">Gallery</a></li>
+          <li><a href="${root}blog.html">The Journal</a></li>
+          <li><a href="${root}contact.html">Getting here</a></li>
+          <li><a href="${root}careers.html">Careers</a></li>
         </ul>
       </div>
       <div class="footer__col">
         <h4>Information</h4>
         <ul>
-          <li><a href="contact.html">Contact us</a></li>
-          <li><a href="privacy-policy.html">Privacy policy</a></li>
-          <li><a href="privacy-policy.html#cookies">Cookie policy</a></li>
-          <li><a href="terms-condition.html">Terms &amp; conditions</a></li>
-          <li><a href="terms-condition.html#cancellation">Cancellation policy</a></li>
-          <li><a href="assets/moksha-brochure.pdf" download>Brochure</a></li>
+          <li><a href="${root}contact.html">Contact us</a></li>
+          <li><a href="${root}privacy-policy.html">Privacy policy</a></li>
+          <li><a href="${root}privacy-policy.html#cookies">Cookie policy</a></li>
+          <li><a href="${root}terms-condition.html">Terms &amp; conditions</a></li>
+          <li><a href="${root}terms-condition.html#cancellation">Cancellation policy</a></li>
+          <li><a href="${root}assets/moksha-brochure.pdf" download>Brochure</a></li>
         </ul>
       </div>
       <div class="footer__col footer__col--contact">
@@ -358,10 +360,10 @@ export function footer() {
     <div class="footer__bottom">
       <span>&copy; ${new Date().getFullYear()} Moksha Himalaya Spa Resort. An Asia Resorts Ltd Property.</span>
       <div class="footer__bottom-links">
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="terms-condition.html">Terms</a>
-        <a href="terms-condition.html#cancellation">Cancellation</a>
-        <a href="careers.html">Careers</a>
+        <a href="${root}privacy-policy.html">Privacy</a>
+        <a href="${root}terms-condition.html">Terms</a>
+        <a href="${root}terms-condition.html#cancellation">Cancellation</a>
+        <a href="${root}careers.html">Careers</a>
       </div>
     </div>
   </div>
@@ -369,11 +371,12 @@ export function footer() {
 </footer>`;
 }
 
-export function pageHero({ image, alt, crumb, lines, intro, meta = [] }) {
+export function pageHero({ image, alt, crumb, lines, intro, meta = [], root = "" }) {
+  const imgSrc = image.startsWith("http") ? image : `${root}assets/img/${image}`;
   return `<section class="page-hero" id="top">
-  <div class="page-hero__media parallax-wrap"><img src="assets/img/${image}" alt="${alt}" data-parallax="7"></div>
+  <div class="page-hero__media parallax-wrap"><img src="${imgSrc}" alt="${alt}" data-parallax="7"></div>
   <div class="page-hero__content container">
-    <nav class="breadcrumb" aria-label="Breadcrumb" data-page-fade><a href="index.html">Home</a><i></i><span>${crumb}</span></nav>
+    <nav class="breadcrumb" aria-label="Breadcrumb" data-page-fade><a href="${root}index.html">Home</a><i></i><span>${crumb}</span></nav>
     <h1 data-page-title>${lines.map((l) => `<span class="line"><span>${l}</span></span>`).join("")}</h1>
     <p data-page-fade>${intro}</p>
     ${meta.length ? `<div class="page-hero__meta" data-page-fade>${meta.map((m) => `<div><span>${m[0]}</span><strong>${m[1]}</strong></div>`).join("")}</div>` : ""}
@@ -382,9 +385,11 @@ export function pageHero({ image, alt, crumb, lines, intro, meta = [] }) {
 </section>`;
 }
 
-export function ctaBand({ image, title, text, primary = ["Reserve a suite", "#", "data-booking-open"], secondary = ["Speak to us", "contact.html"] }) {
+export function ctaBand({ image, title, text, primary = ["Reserve a suite", "#", "data-booking-open"], secondary = ["Speak to us", "contact.html"], root = "" }) {
+  const imgSrc = image.startsWith("http") ? image : `${root}assets/img/${image}`;
+  const secLink = secondary[1].startsWith("http") || secondary[1].startsWith("#") ? secondary[1] : `${root}${secondary[1]}`;
   return `<section class="cta-band">
-  <div class="cta-band__media parallax-wrap"><img src="assets/img/${image}" alt="" data-parallax="10"></div>
+  <div class="cta-band__media parallax-wrap"><img src="${imgSrc}" alt="" data-parallax="10"></div>
   <div class="container">
     <div class="cta-band__inner">
       <p class="eyebrow">Moksha Himalaya</p>
@@ -392,7 +397,7 @@ export function ctaBand({ image, title, text, primary = ["Reserve a suite", "#",
       <p>${text}</p>
       <div class="cta-band__actions">
         <a class="btn btn--solid" href="${primary[1]}" ${primary[2] || ""} data-magnetic><span>${primary[0]}</span> ${icons.arrow}</a>
-        <a class="btn btn--light" href="${secondary[1]}"><span>${secondary[0]}</span></a>
+        <a class="btn btn--light" href="${secLink}"><span>${secondary[0]}</span></a>
       </div>
     </div>
   </div>
@@ -406,37 +411,39 @@ export function backToTop() {
 </button>`;
 }
 
-export function scripts() {
-  return `<script src="assets/vendor/gsap.min.js" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/SplitText.min.js" defer></script>
-<script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/main.js" defer></script>`;
+export function scripts(root = "") {
+  return `<script src="${root}assets/vendor/gsap.min.js" defer></script>
+<script src="${root}assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="${root}assets/vendor/SplitText.min.js" defer></script>
+<script src="${root}assets/vendor/lenis.min.js" defer></script>
+<script src="${root}assets/js/main.js" defer></script>`;
 }
 
-export function layout({ page, title, desc, image, preload = "", main, withLightbox = false }) {
-  return `${head({ title, desc, image, preload })}
+export function layout({ page, title, desc, image, preload = "", main, withLightbox = false, root = "" }) {
+  return `${head({ title, desc, image, preload, root })}
 <body data-page="${page}">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
-${preloader()}
+${preloader(root)}
 <div class="page-veil" aria-hidden="true"></div>
-${header(page)}
-${menu(page)}
+${header(page, root)}
+${menu(page, root)}
 <main id="main">
 ${main}
 </main>
-${footer()}
+${footer(root)}
 ${backToTop()}
 ${bookingModal()}
 ${withLightbox ? lightbox() : ""}
-${scripts()}
+${scripts(root)}
 </body>
 </html>`;
 }
 
 export function writePage(name, html) {
-  fs.writeFileSync(path.join(ROOT, name), html);
+  const fullPath = path.join(ROOT, name);
+  fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+  fs.writeFileSync(fullPath, html);
   const kb = (Buffer.byteLength(html) / 1024).toFixed(1);
-  console.log(`  ${name.padEnd(22)} ${kb} kB`);
+  console.log(`  ${name.padEnd(36)} ${kb} kB`);
 }

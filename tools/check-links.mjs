@@ -6,7 +6,12 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith(".html"));
+const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith(".html")).map(f => path.join(ROOT, f));
+const blogDir = path.join(ROOT, "blog");
+if (fs.existsSync(blogDir)) {
+  const blogFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".html")).map(f => path.join(blogDir, f));
+  pages.push(...blogFiles);
+}
 const missing = new Map();
 
 function check(from, ref) {
@@ -14,15 +19,15 @@ function check(from, ref) {
   if (/^(https?:|mailto:|tel:|data:|javascript:)/i.test(ref)) return;
   const clean = ref.split("#")[0].split("?")[0];
   if (!clean) return;
-  const target = path.resolve(ROOT, clean);
+  const target = path.resolve(path.dirname(from), clean);
   if (!fs.existsSync(target)) {
     if (!missing.has(ref)) missing.set(ref, new Set());
-    missing.get(ref).add(from);
+    missing.get(ref).add(path.relative(ROOT, from));
   }
 }
 
 for (const page of pages) {
-  const html = fs.readFileSync(path.join(ROOT, page), "utf8");
+  const html = fs.readFileSync(page, "utf8");
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) check(page, m[1]);
 }
 
