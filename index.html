@@ -774,22 +774,58 @@
 <section class="newsletter section">
   <div class="container">
     <div class="newsletter__grid">
-      <div>
+      <div class="newsletter__intro" data-reveal>
         <p class="eyebrow eyebrow--dark">Letters from the mountain</p>
         <h2 class="h2" data-split style="margin-top:20px">Stay up to date with<br>offers &amp; <em class="italic">promotions</em></h2>
-        <p style="margin-top:22px;max-width:40ch;font-size:.92rem;color:rgba(16,23,19,.65)">A short, occasional letter. New rituals, seasonal menus and Suite offers — never more than once a month.</p>
+        <p style="margin-top:20px;max-width:44ch;font-size:.96rem;line-height:1.6;color:rgba(16,23,19,.75)">A quiet, occasional letter. Seasonal Ayurvedic menus, private suite offers, and curated mountain rituals — delivered strictly once a month.</p>
+        
+        <div class="newsletter__perks">
+          <div class="newsletter__perk">
+            <span class="newsletter__perk-icon">✦</span>
+            <div>
+              <strong>Curated Mountain Dispatches</strong>
+              <p>Ayurvedic wellness guides, seasonal chef menus, and Himalayan astronomy nights.</p>
+            </div>
+          </div>
+          <div class="newsletter__perk">
+            <span class="newsletter__perk-icon">✦</span>
+            <div>
+              <strong>Private Staying Privileges</strong>
+              <p>Advance notice of private suite releases, spa credits, and exclusive seasonal rates.</p>
+            </div>
+          </div>
+          <div class="newsletter__perk">
+            <span class="newsletter__perk-icon">✦</span>
+            <div>
+              <strong>Zero Spam Guarantee</strong>
+              <p>Strictly one letter a month. No clutter, no daily promos. One-click opt-out anytime.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <form class="newsletter__form" data-form data-success="Welcome to the mountain — check your inbox for a quiet hello.">
-        <div class="field">
-          <label for="nl-email">Email address</label>
-          <input type="email" id="nl-email" name="email" placeholder="you@example.com" required>
-          <span class="field__err">Please enter a valid email address.</span>
+
+      <div class="newsletter__card" data-reveal>
+        <div class="newsletter__card-head">
+          <span class="eyebrow" style="color:var(--gold);margin-bottom:6px">The Moksha Circle</span>
+          <h3 class="newsletter__card-title">Join our Quiet Circle</h3>
+          <p class="newsletter__card-sub">Subscribe to receive private invitations and seasonal mountain updates directly to your inbox.</p>
         </div>
-        <div class="newsletter__row">
-          <button class="btn btn--dark" type="submit"><span>Subscribe</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8"/></svg></button>
-          <span class="newsletter__note">By subscribing you agree to our privacy policy. Unsubscribe any time.</span>
-        </div>
-      </form>
+        <form class="newsletter__form" data-form data-success="Welcome to the mountain — check your inbox for a quiet hello.">
+          <div class="field">
+            <label for="nl-email">Your Email Address</label>
+            <input type="email" id="nl-email" name="email" placeholder="name@domain.com" required autocomplete="email">
+            <span class="field__err">Please enter a valid email address.</span>
+          </div>
+          <button class="newsletter__submit" type="submit">
+            <span>Subscribe to Newsletter</span>
+            <span class="btn__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8"/></svg></span>
+          </button>
+          <div class="newsletter__trust">
+            <span class="newsletter__lock-icon">🔒</span>
+            <span class="newsletter__note">Your email is private and safe with us. Unsubscribe anytime.</span>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
