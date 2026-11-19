@@ -479,16 +479,18 @@ img[data-parallax] { will-change: transform; }
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(20px, 2.4vw, 38px);
+  gap: clamp(14px, 1.4vw, 22px);
+  margin-left: clamp(28px, 4vw, 64px);
 }
 .nav a {
   position: relative;
-  font-size: 11.5px;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: 450;
-  padding: 8px 0;
+  font-weight: 500;
+  padding: 6px 0;
   opacity: 0.86;
+  white-space: nowrap;
   transition: opacity 0.3s;
 }
 .nav a::after {
@@ -506,17 +508,17 @@ img[data-parallax] { will-change: transform; }
 .nav a:hover::after,
 .nav a.is-active::after { transform: scaleX(1); transform-origin: left; }
 
-.header-actions { display: flex; align-items: center; gap: clamp(16px, 1.8vw, 24px); flex: none; }
-.header-actions .btn { padding: 14px 26px; font-size: 11px; letter-spacing: 0.22em; }
+.header-actions { display: flex; align-items: center; gap: clamp(12px, 1.4vw, 20px); flex: none; }
+.header-actions .btn { padding: 11px 20px; font-size: 10px; letter-spacing: 0.18em; }
 
 .menu-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 11.5px;
-  letter-spacing: 0.24em;
+  gap: 10px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  padding: 8px 0;
+  padding: 6px 0;
 }
 .menu-btn__icon {
   width: 26px;
@@ -2518,15 +2520,15 @@ img[data-parallax] { will-change: transform; }
 .resort-switch__toggle {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: inherit;
-  padding: 9px 18px;
+  padding: 7px 15px;
   border-radius: 999px;
   font-family: var(--font-sans);
-  font-size: 11.5px;
-  letter-spacing: 0.14em;
+  font-size: 10px;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.35s var(--ease-out);
