@@ -676,18 +676,8 @@ img[data-parallax] { will-change: transform; }
 
 /* ---------- Page transition ---------- */
 .page-veil {
-  position: fixed;
-  inset: 0;
-  z-index: 250;
-  background: var(--ink);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  pointer-events: none;
-  display: grid;
-  place-items: center;
+  display: none !important;
 }
-.page-veil img { width: 60px; opacity: 0; }
-.page-veil.is-active { pointer-events: all; }
 
 /* ---------- Cursor ---------- */
 .cursor {

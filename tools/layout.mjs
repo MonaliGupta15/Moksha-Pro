@@ -70,7 +70,7 @@ ${extra}
 export function preloader() {
   return `<div class="preloader" data-preloader aria-hidden="true">
   <div class="preloader__inner">
-    <div class="preloader__logo"><img src="assets/img/moksha-logo.png" alt=""></div>
+    <div class="preloader__logo"><img src="assets/img/moksha-logo.png" alt="Moksha Himalaya"></div>
     <div class="preloader__word">Moksha</div>
     <div class="preloader__bar"><i></i></div>
   </div>
@@ -420,7 +420,7 @@ export function layout({ page, title, desc, image, preload = "", main, withLight
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 ${preloader()}
-<div class="page-veil" aria-hidden="true"><img src="assets/img/moksha-logo.png" alt=""></div>
+<div class="page-veil" aria-hidden="true"></div>
 ${header(page)}
 ${menu(page)}
 <main id="main">

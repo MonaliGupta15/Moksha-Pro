@@ -130,52 +130,47 @@
     let seen = false;
     try { seen = sessionStorage.getItem("moksha-visited") === "1"; } catch (err) {}
 
+    // Subsequent page navigations: instant reveal with zero delay
     if (seen) {
-      // Repeat visit within the tab: keep the transition continuity but skip the long count.
-      if (count) count.textContent = "100";
-      return new Promise((resolve) => {
-        gsap.timeline({
-          onComplete: () => {
-            pre.style.display = "none";
-            pre.classList.add("is-done");
-            unlockScroll();
-            resolve();
-          },
-        })
-          .set([logo, word], { opacity: 1 })
-          .to([logo, word, count, $(".preloader__bar", pre)], { opacity: 0, duration: 0.28, ease: "power2.in" })
-          .to(curtains, { scaleY: 0, duration: 0.85, ease: "power4.inOut", stagger: 0.06 }, "-=0.1");
-      });
+      pre.style.display = "none";
+      pre.classList.add("is-done");
+      unlockScroll();
+      return Promise.resolve();
     }
 
+    // First visit: fast, sleek single-logo intro (~0.65s total)
     return new Promise((resolve) => {
       const finish = () => {
-        const tl = gsap.timeline({
-          onComplete: () => {
-            pre.style.display = "none";
-            pre.classList.add("is-done");
-            try { sessionStorage.setItem("moksha-visited", "1"); } catch (err) {}
-            unlockScroll();
-            resolve();
-          },
-        });
-        tl.to([logo, word, count, $(".preloader__bar", pre)], {
-          opacity: 0, y: -18, duration: 0.5, ease: "power2.in", stagger: 0.04,
-        })
-          .to(curtains, {
-            scaleY: 0, duration: 0.9, ease: "power4.inOut", stagger: 0.07,
-          }, "-=0.2");
+        pre.style.display = "none";
+        pre.classList.add("is-done");
+        try { sessionStorage.setItem("moksha-visited", "1"); } catch (err) {}
+        unlockScroll();
+        resolve();
       };
 
       const tl = gsap.timeline({ onComplete: finish });
-      tl.to(logo, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0)
-        .to(word, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0.15)
+      tl.to([logo, word], { opacity: 1, duration: 0.26, ease: "power2.out" })
+        .to(bar, { scaleX: 1, duration: 0.35, ease: "power1.inOut" }, "-=0.1")
         .to({ v: 0 }, {
-          v: 100, duration: 1.05, ease: "power2.inOut",
-          onUpdate: function () { count.textContent = pad(Math.round(this.targets()[0].v)); },
-        }, 0.1)
-        .to(bar, { scaleX: 1, duration: 1.05, ease: "power2.inOut" }, 0.1)
-        .to({}, { duration: 0.16 });
+          v: 100,
+          duration: 0.35,
+          ease: "power1.inOut",
+          onUpdate: function () {
+            if (count) count.textContent = pad(Math.round(this.targets()[0].v));
+          },
+        }, "<")
+        .to([logo, word, count, $(".preloader__bar", pre)], {
+          opacity: 0,
+          y: -8,
+          duration: 0.2,
+          ease: "power2.in",
+        }, "+=0.06")
+        .to(curtains, {
+          scaleY: 0,
+          duration: 0.38,
+          ease: "power3.inOut",
+          stagger: 0.03,
+        }, "-=0.12");
     });
   }
 
@@ -926,24 +921,9 @@
 
   /* ---------------- Page transition ---------------- */
   function initPageTransition() {
-    if (reduceMotion) return;
+    // Disabled link interception to allow instant page loading and prevent conflicting double logos
     const veil = $(".page-veil");
-    if (!veil) return;
-    doc.addEventListener("click", (e) => {
-      const link = e.target.closest("a");
-      if (!link) return;
-      const href = link.getAttribute("href");
-      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || link.target === "_blank" || link.hasAttribute("download") || e.metaKey || e.ctrlKey || e.shiftKey) return;
-      if (!/\.html?($|\?)/.test(href) || link.host !== window.location.host) return;
-      if (href === window.location.pathname.split("/").pop()) return;
-      e.preventDefault();
-      const logo = $("img", veil);
-      gsap.timeline({
-        onComplete: () => { window.location.href = href; },
-      })
-        .to(veil, { scaleY: 1, transformOrigin: "bottom", duration: 0.62, ease: "power4.inOut" })
-        .to(logo, { opacity: 1, duration: 0.35 }, "-=0.15");
-    });
+    if (veil) veil.style.display = "none";
   }
 
   /* ---------------- Section dot nav ---------------- */
@@ -1093,12 +1073,14 @@
       }
     }
 
-    // Ensure browser back-forward cache doesn't leave the veil up
+    // Ensure browser back-forward cache doesn't leave the preloader up or scroll locked
     window.addEventListener("pageshow", (e) => {
-      if (e.persisted) {
-        const veil = $(".page-veil");
-        if (veil && hasGSAP) gsap.set(veil, { scaleY: 0 });
+      const pre = $("[data-preloader]");
+      if (pre && sessionStorage.getItem("moksha-visited") === "1") {
+        pre.style.display = "none";
+        pre.classList.add("is-done");
       }
+      unlockScroll();
     });
   });
 })();
