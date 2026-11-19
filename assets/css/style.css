@@ -1246,15 +1246,31 @@ img[data-parallax] { will-change: transform; }
   background: var(--ink-2);
 }
 .suite-card:first-child { min-height: clamp(470px, 62vw, 740px); }
-.suite-card__img { position: absolute; inset: 0; z-index: 0; }
-.suite-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s var(--ease-out); }
+.suite-card > * { position: relative; z-index: 2; }
+.suite-card > .suite-card__img,
+.suite-card__img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+}
+.suite-card__img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+  transition: transform 1.5s var(--ease-out);
+}
 .suite-card:hover .suite-card__img img { transform: scale(1.055); }
 .suite-card::after {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(8,13,10,.02) 35%, rgba(8,13,10,.78) 100%);
-  transition: opacity .5s;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(8, 13, 10, 0.4) 0%, rgba(8, 13, 10, 0.04) 35%, rgba(8, 13, 10, 0.85) 100%);
+  transition: opacity 0.5s;
 }
-.suite-card > * { position: relative; z-index: 2; }
 .suite-card__top {
   position: absolute; top: clamp(20px, 2vw, 28px); left: clamp(22px, 2.4vw, 34px);
   right: clamp(22px, 2.4vw, 34px);
