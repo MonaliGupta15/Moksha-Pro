@@ -198,9 +198,18 @@
     function openMenu() {
       if (open) return;
       open = true;
+      const resortWrap = $("[data-resort-dropdown]");
+      if (resortWrap) {
+        resortWrap.classList.remove("is-open");
+        const resortBtn = $("[data-resort-toggle]", resortWrap);
+        const resortMenu = $("[data-resort-menu]", resortWrap);
+        if (resortBtn) resortBtn.setAttribute("aria-expanded", "false");
+        if (resortMenu) resortMenu.setAttribute("aria-hidden", "true");
+      }
       lockScroll();
       header.classList.add("is-menu-open");
       overlay.style.visibility = "visible";
+      overlay.scrollTop = 0;
       overlay.setAttribute("aria-hidden", "false");
       openBtn && openBtn.setAttribute("aria-expanded", "true");
       if (reduceMotion) {
@@ -223,6 +232,7 @@
       openBtn && openBtn.setAttribute("aria-expanded", "false");
       if (reduceMotion) {
         overlay.style.visibility = "hidden";
+        overlay.scrollTop = 0;
         unlockScroll();
         return;
       }
@@ -230,6 +240,7 @@
       gsap.timeline({
         onComplete: () => {
           overlay.style.visibility = "hidden";
+          overlay.scrollTop = 0;
           unlockScroll();
         },
       }).to(overlay, { clipPath: "inset(0 0 100% 0)", duration: 0.7, ease: "power4.inOut" });
