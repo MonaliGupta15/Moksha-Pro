@@ -246,7 +246,7 @@ export const home = `
           <span class="resort-tab__name">Moksha Himalaya Spa Resort</span>
           <span class="resort-tab__tag">5,000 ft · All-Suite Wellness Sanctuary</span>
         </div>
-        <span class="resort-tab__pill">Current Resort</span>
+        <span class="resort-tab__pill">Current</span>
       </button>
       <button class="resort-tab" type="button" data-tab="heights" role="tab" aria-selected="false" aria-controls="panel-heights">
         <span class="resort-tab__num">02</span>
@@ -254,7 +254,7 @@ export const home = `
           <span class="resort-tab__name">Timber Trail Heights &amp; Terraces</span>
           <span class="resort-tab__tag">5,000 ft · Mountain Crest &amp; Celebrations</span>
         </div>
-        <span class="resort-tab__pill">Sister Resort</span>
+        <span class="resort-tab__pill">Explore ↗</span>
       </button>
       <button class="resort-tab" type="button" data-tab="base" role="tab" aria-selected="false" aria-controls="panel-base">
         <span class="resort-tab__num">03</span>
@@ -262,7 +262,7 @@ export const home = `
           <span class="resort-tab__name">Timber Trail Resort</span>
           <span class="resort-tab__tag">Foothills · River Lawns &amp; Cable Car Base</span>
         </div>
-        <span class="resort-tab__pill">Sister Resort</span>
+        <span class="resort-tab__pill">Explore ↗</span>
       </button>
     </div>
 
